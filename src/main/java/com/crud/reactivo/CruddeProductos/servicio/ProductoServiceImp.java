@@ -14,6 +14,7 @@ public class ProductoServiceImp implements ProductoService{
     ProductoRepositorio repositorio;
     @Override
     public Mono<Producto> save(Producto producto) {
+
         return this.repositorio.save(producto);
     }
 
@@ -31,8 +32,15 @@ public class ProductoServiceImp implements ProductoService{
 
     @Override
     public Mono<Producto> update(String id, Producto producto) {
-        return null;
-
+        return this.repositorio.findById(id)
+                .flatMap(pr -> {
+                    pr.setId(id);
+                    pr.setNombre(producto.getNombre());
+                    pr.setPrecio(producto.getPrecio());
+                    pr.setCategoria(producto.getCategoria());
+                    return save(pr);
+                })
+                .switchIfEmpty(Mono.empty());
     }
 
     @Override

@@ -8,10 +8,12 @@ import reactor.core.publisher.Mono;
 @Service
 public interface ProductoService {
 
+    //0...1
     Mono<Producto> save(Producto producto);
 
     Mono<Producto> delete(String id);
 
+    //0...N
     Flux<Producto> findByCategory(String categoria);
 
     Mono<Producto> update(String id, Producto producto);

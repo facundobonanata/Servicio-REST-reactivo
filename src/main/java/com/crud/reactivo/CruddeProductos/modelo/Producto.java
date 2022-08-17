@@ -3,6 +3,7 @@ package com.crud.reactivo.CruddeProductos.modelo;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+//mapear los datos a mongodb
 @Document(value = "productos")
 public class Producto {
     @Id
@@ -12,7 +13,6 @@ public class Producto {
     private String categoria;
 
     public Producto(){
-
     }
 
     public Producto(String id, String nombre, int precio, String categoria) {

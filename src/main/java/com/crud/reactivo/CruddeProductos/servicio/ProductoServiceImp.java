@@ -19,12 +19,20 @@ public class ProductoServiceImp implements ProductoService{
 
     @Override
     public Mono<Producto> delete(String id) {
-        return null;
+        return this.repositorio.findById(id)
+                .flatMap(p -> this.repositorio.deleteById(p.getId()).thenReturn(p));
+    }
+
+    @Override
+    public Flux<Producto> findByCategory(String categoria) {
+        return this.repositorio.findAll()
+                .filter(x -> x.getCategoria() == categoria);
     }
 
     @Override
     public Mono<Producto> update(String id, Producto producto) {
         return null;
+
     }
 
     @Override
@@ -34,6 +42,6 @@ public class ProductoServiceImp implements ProductoService{
 
     @Override
     public Mono<Producto> findById(String id) {
-        return this.repositorio;
+        return this.repositorio.findById(id);
     }
 }

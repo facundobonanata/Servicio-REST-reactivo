@@ -12,6 +12,8 @@ public interface ProductoService {
 
     Mono<Producto> delete(String id);
 
+    Flux<Producto> findByCategory(String categoria);
+
     Mono<Producto> update(String id, Producto producto);
 
     Flux<Producto> findAll();

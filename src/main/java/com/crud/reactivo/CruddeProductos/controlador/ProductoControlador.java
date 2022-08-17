@@ -15,14 +15,33 @@ public class ProductoControlador {
     ProductoService productoService;
 
     @PostMapping("/productos")
-    private Mono<Producto> save(@RequestBody Producto producto){
+    private Mono<Producto> save(@RequestBody Producto producto) {
         return this.productoService.save(producto);
     }
-    @GetMapping("/productos")
-    public Flux<Producto> findAll(){
-        return productoService.findAll();
+
+    @GetMapping(value = "/productos")
+    public Flux<Producto> findAll() {
+        return this.productoService.findAll();
     }
 
+    @GetMapping(value = "/producto/{id}")
+    public Mono<Producto> findById(@PathVariable("id") String id) {
+        return this.productoService.findById(id);
 
+    }
+    @GetMapping(value = "/productos/{categoria}")
+    public Flux<Producto> productosByCategoria(@PathVariable("categoria") String categoria) {
+        return this.productoService.findByCategory(categoria);
+    }
 
+    @PutMapping("/update")
+    public Mono<Producto> update(@PathVariable("id") String id, @RequestBody Producto producto) {
+        return this.productoService.update(id, producto);
+
+    }
+
+    @DeleteMapping("/producto/{id}")
+    private Mono<Producto> delete(@PathVariable("id") String id) {
+        return this.productoService.delete(id);
+    }
 }
